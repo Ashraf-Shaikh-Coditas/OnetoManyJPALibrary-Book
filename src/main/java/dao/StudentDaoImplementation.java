@@ -1,6 +1,7 @@
 package dao;
 
 import bean.Student;
+import util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,8 +9,7 @@ import javax.persistence.Persistence;
 public class StudentDaoImplementation implements StudentDao {
 
     public void addRecord(Student student) {
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("ashraf");
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
+        EntityManager entityManager= JPAUtil.getFactory().createEntityManager();
 
         entityManager.getTransaction().begin();
         entityManager.persist(student);
@@ -17,8 +17,7 @@ public class StudentDaoImplementation implements StudentDao {
     }
 
     public void updateRecord(int id, String newCity) {
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("ashraf");
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
+        EntityManager entityManager= JPAUtil.getFactory().createEntityManager();
 
         entityManager.getTransaction().begin();
         Student student = entityManager.find(Student.class,id);
@@ -28,8 +27,7 @@ public class StudentDaoImplementation implements StudentDao {
     }
 
     public void deleteRecord(int id) {
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("ashraf");
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
+        EntityManager entityManager= JPAUtil.getFactory().createEntityManager();
 
         entityManager.getTransaction().begin();
         Student student = entityManager.find(Student.class,id);
@@ -38,8 +36,7 @@ public class StudentDaoImplementation implements StudentDao {
     }
 
     public void findByID(int id) {
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("ashraf");
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
+        EntityManager entityManager= JPAUtil.getFactory().createEntityManager();
 
         Student student = entityManager.find(Student.class,id);
         System.out.println(student);
