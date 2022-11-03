@@ -12,6 +12,8 @@ public class StudentMain {
 
         boolean flag = true;
 
+        new StudentDaoImplementation().fetch();
+
         while (flag) {
             System.out.println("1.Add Student" +
                     "\n2.Update Student" +
@@ -31,7 +33,7 @@ public class StudentMain {
                     System.out.println("Enter id and new  city of Student to be updated :");
                     int id = Integer.parseInt(bufferedReader.readLine());
                     String newCity = bufferedReader.readLine();
-                    new StudentDaoImplementation().updateRecord(id,newCity);
+                    new StudentDaoImplementation().updateCityRecord(id,newCity);
                     break;
                 case 3 :
                     System.out.println("Enter id to be deleted : ");

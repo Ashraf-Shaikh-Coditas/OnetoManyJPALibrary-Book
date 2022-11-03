@@ -6,6 +6,9 @@ import util.JPAUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import java.util.List;
+
 public class StudentDaoImplementation implements StudentDao {
 
     public void addRecord(Student student) {
@@ -16,7 +19,7 @@ public class StudentDaoImplementation implements StudentDao {
         entityManager.getTransaction().commit();
     }
 
-    public void updateRecord(int id, String newCity) {
+    public void updateCityRecord(int id, String newCity) {
         EntityManager entityManager= JPAUtil.getFactory().createEntityManager();
 
         entityManager.getTransaction().begin();
@@ -25,6 +28,18 @@ public class StudentDaoImplementation implements StudentDao {
         entityManager.getTransaction().commit();
 
     }
+
+    public void updateNameRecord(int id, String newName) {
+        EntityManager entityManager= JPAUtil.getFactory().createEntityManager();
+
+        entityManager.getTransaction().begin();
+        Student student = entityManager.find(Student.class,id);
+        student.setStudentName(newName);
+        entityManager.getTransaction().commit();
+
+    }
+
+
 
     public void deleteRecord(int id) {
         EntityManager entityManager= JPAUtil.getFactory().createEntityManager();
@@ -40,5 +55,14 @@ public class StudentDaoImplementation implements StudentDao {
 
         Student student = entityManager.find(Student.class,id);
         System.out.println(student);
+    }
+
+    public List<Student> fetch() {
+        EntityManager em = JPAUtil.getFactory().createEntityManager();
+        Query query = em.createQuery(
+                " FROM Student ");
+        List<Student> studentList = query.getResultList();
+        em.close();
+        return studentList;
     }
 }
